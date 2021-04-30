@@ -3,10 +3,12 @@ from discord.ext import commands
 
 
 bot = commands.Bot(command_prefix='-')
-bot.remove_command('help')
+
 
 def inteam(ctx):
-    return bot.get_guild(GUILDID).get_role(ROLEID) in ctx.author.roles # GUILDID = The GuildID from the Support Server and RoleID is the Support RoleID.
+    guild = bot.get_guild(GUILDID)
+    role = bot.get_role(ROLEID)
+    role in ctx.author.roles # GUILDID = The GuildID from the Support Server and RoleID is the Support RoleID.
 
 
 @bot.event
@@ -18,7 +20,6 @@ async def on_ready():
 async def on_message(message):
     if message.author.id == bot.user.id:
         return
-
     if message.author != message.author.bot:
         if not message.guild:
             guild = bot.get_guild(GUILDID) # The GuildID from the Support Server.
